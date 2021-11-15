@@ -46,7 +46,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App min-h-screen">
+    <div className="App min-h-screen py-20 px-10">
       <Chart crypt1={crypt1} crypt2={crypt2} />
       <Exchange
         setCryptoData={setCryptoData}
