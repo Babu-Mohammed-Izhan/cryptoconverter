@@ -60,25 +60,24 @@ const Chart = ({ crypt1, crypt2 }) => {
   const [crpyt2chart, setcrpyt2chart] = useState([]);
 
   useEffect(() => {
-    const getCurrencies = async ({ cryptoname }) => {
+    const getCurrencies = async (cryptoname) => {
       const res = await axios.get(
-        `api.coincap.io/v2/assets/${cryptoname}/history`
+        `https://api.coincap.io/v2/assets/${cryptoname}/history?interval=d1`
       );
 
-      const data = res.json();
-      console.log(data);
-      return data;
+      console.log(res);
+      return res.data;
     };
 
-    const c1 = getCurrencies(crypt1);
-    const c2 = getCurrencies(crypt2);
+    const c1 = getCurrencies(crypt1.id);
+    const c2 = getCurrencies(crypt2.id);
 
     setcrpyt1chart(c1);
     setcrpyt2chart(c2);
   }, [crypt1, crypt2]);
 
   return (
-    <div>
+    <div className="h-72">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
