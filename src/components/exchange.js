@@ -1,63 +1,44 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
-const Exchange = ({
-  setCryptoData,
-  cryptodata,
-  crypt1,
-  crypt2,
-  setCrypt1,
-  setCrypt2,
-}) => {
-  const [cexchange, setCexchange] = useState(0);
+const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
+  const cryptdata = cryptodata.map((d) => d.id);
+
   const [c1val, setC1val] = useState(1);
   const [c2val, setC2val] = useState(0);
 
-  useEffect(() => {
-    const getExchange = async () => {
-      const config = {
-        hostname: "rest.coinapi.io",
-        path: `/v1/exchangerate/${crypt1}/${crypt2}`,
-        headers: { "X-CoinAPI-Key": `${process.env.API_KEY}` },
-      };
-      const res = await axios.get(config);
-      const data = res.json();
-      setCexchange(data.rate);
-    };
-
-    getExchange();
-  }, [crypt1, crypt2]);
-
   const handlec1 = (e) => {
-    setCrypt1(e.target.value);
+    const c1 = cryptodata.find((c) => c.id === e.value);
+    setCrypt1(c1);
   };
   const handlec2 = (e) => {
-    setCrypt1(e.target.value);
+    const c2 = cryptodata.find((c) => c.id === e.value);
+    setCrypt2(c2);
   };
 
   const handlecrypto1calc = (e) => {
     const value = e.target.value;
-    setCrypt1(value);
-    const convertedvalue = value * cexchange;
-    setCrypt2(convertedvalue);
+    const convertedvalue =
+      (value * Number(crypt1.priceUsd)) / Number(crypt2.priceUsd);
+    setC2val(convertedvalue);
+    setC1val(value);
   };
 
   const handlecrypto2calc = (e) => {
     const value = e.target.value;
-    setCrypt2(value);
-    const convertedvalue = value / cexchange;
-    setCrypt1(convertedvalue);
+    const convertedvalue =
+      (value * Number(crypt2.priceUsd)) / Number(crypt1.priceUsd);
+    setC1val(convertedvalue);
+    setC2val(value);
   };
-
   return (
-    <div>
-      <div>
+    <div className="flex items-center justify-center">
+      <div className="h-40">
         <Dropdown
-          options={cryptodata}
+          options={cryptdata}
           onChange={handlec1}
-          value={crypt1}
+          value={crypt1.id}
           placeholder="Select an crypto"
         />
         <input
@@ -68,11 +49,11 @@ const Exchange = ({
           id="c1"
         />
       </div>
-      <div>
+      <div className="h-40">
         <Dropdown
-          options={cryptodata}
+          options={cryptdata}
           onChange={handlec2}
-          value={crypt2}
+          value={crypt2.id}
           placeholder="Select an crypto"
         />
         <input
