@@ -1,10 +1,10 @@
+/* eslint-disable no-implied-eval */
 import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
@@ -15,11 +15,17 @@ const Chart = ({ crypt1, crypt2 }) => {
   const [crypt1chart, setcrpyt1chart] = useState([]);
   const [crypt2chart, setcrpyt2chart] = useState([]);
   const [chartdata, setchartdata] = useState([]);
-  const [interval, setInterval] = useState("d1");
   useEffect(() => {
     const getCurrencies = async (cryptoname, num) => {
       const res = await axios.get(
-        `https://api.coincap.io/v2/assets/${cryptoname}/history?interval=${interval}`
+        `https://cors-anywhere.herokuapp.com/https://api.coincap.io/v2/assets/${cryptoname}/history?interval=d1`,
+        {
+          auth: `${process.env.REACT_APP_COIN_API_KEY}`,
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "Accept-Encoding": "gzip",
+          },
+        }
       );
       const cdata = res.data.data;
       if (num === 1) {
@@ -34,15 +40,19 @@ const Chart = ({ crypt1, crypt2 }) => {
   }, [crypt1, crypt2]);
 
   useEffect(() => {
-    if (crypt1chart !== [] && crypt2chart !== []) {
+    if (crypt1chart && crypt2chart) {
       const finaldata =
         crypt1chart &&
         crypt1chart.map((c, idx) => {
-          const cdata = {
-            date: c.date,
-            [`${crypt1.id}`]: c.priceUsd,
-            [`${crypt2.id}`]: crypt2chart[idx].priceUsd,
-          };
+          let cdata;
+          if (crypt2chart.length > 0) {
+            cdata = {
+              date: c.date.slice(0, 10),
+              [`${crypt1.id}`]: Math.round(c.priceUsd),
+              [`${crypt2.id}`]: Math.round(crypt2chart[idx].priceUsd),
+            };
+          }
+
           return cdata;
         });
       setchartdata(finaldata);
@@ -52,24 +62,26 @@ const Chart = ({ crypt1, crypt2 }) => {
   return (
     <div className="max-h-full">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart
-          width={500}
-          height={700}
-          data={chartdata}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey={`${crypt1.id}`} stroke="#8884d8" />
-          <Line type="monotone" dataKey={`${crypt2.id}`} stroke="#82ca9d" />
-        </LineChart>
+        {chartdata.length > 0 ? (
+          <LineChart
+            width={500}
+            height={700}
+            data={chartdata}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey={`${crypt1.id}`} stroke="#8884d8" />
+            <Line type="monotone" dataKey={`${crypt2.id}`} stroke="#82ca9d" />
+          </LineChart>
+        ) : null}
       </ResponsiveContainer>
     </div>
   );
