@@ -11,7 +11,6 @@ function App() {
     symbol: "BTC",
     name: "Bitcoin",
     priceUsd: "66238.4999614974995516",
-
   });
   const [crypt2, setCrypt2] = useState({
     id: "ethereum",
@@ -26,14 +25,13 @@ function App() {
       const res = await axios.get("https://api.coincap.io/v2/assets");
 
       const cryptdata = res.data.data;
-      console.log(cryptdata);
       setCryptoData(cryptdata);
     };
     getCurrencies();
   }, []);
 
   return (
-    <div className="App min-h-screen py-20 px-10">
+    <div className="App min-h-screen py-20 px-10 flex items-center justify-between flex-col">
       <Chart crypt1={crypt1} crypt2={crypt2} />
       <Exchange
         setCryptoData={setCryptoData}
