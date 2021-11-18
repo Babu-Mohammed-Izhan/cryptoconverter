@@ -59,8 +59,6 @@ const Chart = ({ crypt1, crypt2 }) => {
     }
   }, [crypt1chart, crypt2chart]);
 
-  console.log(chartdata);
-
   return (
     <div className="max-h-full">
       <ResponsiveContainer width="100%" height="100%">
