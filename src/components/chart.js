@@ -15,10 +15,11 @@ const Chart = ({ crypt1, crypt2 }) => {
   const [crypt1chart, setcrpyt1chart] = useState([]);
   const [crypt2chart, setcrpyt2chart] = useState([]);
   const [chartdata, setchartdata] = useState([]);
+  const [interval, setInterval] = useState("d1");
   useEffect(() => {
     const getCurrencies = async (cryptoname, num) => {
       const res = await axios.get(
-        `https://api.coincap.io/v2/assets/${cryptoname}/history?interval=d1`
+        `https://api.coincap.io/v2/assets/${cryptoname}/history?interval=${interval}`
       );
       const cdata = res.data.data;
       if (num === 1) {
