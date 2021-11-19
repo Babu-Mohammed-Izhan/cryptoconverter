@@ -18,16 +18,10 @@ const Chart = ({ crypt1, crypt2 }) => {
   useEffect(() => {
     const getCurrencies = async (cryptoname, num) => {
       const res = await axios.get(
-        `https://cors-anywhere.herokuapp.com/https://api.coincap.io/v2/assets/${cryptoname}/history?interval=d1`,
-        {
-          auth: `${process.env.REACT_APP_COIN_API_KEY}`,
-          headers: {
-            "X-Requested-With": "XMLHttpRequest",
-            "Accept-Encoding": "gzip",
-          },
-        }
+        `https://api.nomics.com/v1/currencies/ticker?key=${process.env.REACT_APP_API_KEY}&ids=${cryptoname}&interval=30d&convert=USD&per-page=100&page=1`
       );
       const cdata = res.data.data;
+      console.log(cdata);
       if (num === 1) {
         setcrpyt1chart(cdata);
       }
@@ -35,8 +29,8 @@ const Chart = ({ crypt1, crypt2 }) => {
         setcrpyt2chart(cdata);
       }
     };
-    getCurrencies(crypt1.id, 1);
-    getCurrencies(crypt2.id, 2);
+    getCurrencies(crypt1.symbol, 1);
+    getCurrencies(crypt2.symbol, 2);
   }, [crypt1, crypt2]);
 
   useEffect(() => {
@@ -57,11 +51,11 @@ const Chart = ({ crypt1, crypt2 }) => {
         });
       setchartdata(finaldata);
     }
-  }, [crypt1chart, crypt2chart]);
+  }, [crypt1.id, crypt1chart, crypt2.id, crypt2chart]);
 
   return (
     <div className="max-h-full">
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer>
         {chartdata.length > 0 ? (
           <LineChart
             width={500}
@@ -81,7 +75,9 @@ const Chart = ({ crypt1, crypt2 }) => {
             <Line type="monotone" dataKey={`${crypt1.id}`} stroke="#8884d8" />
             <Line type="monotone" dataKey={`${crypt2.id}`} stroke="#82ca9d" />
           </LineChart>
-        ) : null}
+        ) : (
+          <div></div>
+        )}
       </ResponsiveContainer>
     </div>
   );
