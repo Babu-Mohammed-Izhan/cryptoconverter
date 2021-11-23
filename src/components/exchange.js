@@ -36,7 +36,6 @@ const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
     <div className="flex items-center justify-center gap-4 w-full h-28">
       <div className="flex flex-col justify-between h-full">
         <Dropdown
-          className=" opacity-75"
           options={cryptdata}
           onChange={handlec1}
           value={crypt1.id}
@@ -53,7 +52,6 @@ const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
       </div>
       <div className="flex flex-col justify-between h-full">
         <Dropdown
-          className=" opacity-75"
           options={cryptdata}
           onChange={handlec2}
           value={crypt2.id}
