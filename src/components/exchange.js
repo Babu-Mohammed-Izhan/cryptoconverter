@@ -10,10 +10,18 @@ const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
 
   const handlec1 = (e) => {
     const c1 = cryptodata.find((c) => c.id === e.value);
+    const value = c2val;
+    const convertedvalue =
+      (value * Number(crypt2.priceUsd)) / Number(c1.priceUsd);
+    setC1val(convertedvalue);
     setCrypt1(c1);
   };
   const handlec2 = (e) => {
     const c2 = cryptodata.find((c) => c.id === e.value);
+    const value = c1val;
+    const convertedvalue =
+      (value * Number(crypt1.priceUsd)) / Number(c2.priceUsd);
+    setC2val(convertedvalue);
     setCrypt2(c2);
   };
 
@@ -35,12 +43,7 @@ const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
   return (
     <div className="flex items-center justify-center gap-4 w-full h-28">
       <div className="flex flex-col justify-between h-full">
-        <Dropdown
-          options={cryptdata}
-          onChange={handlec1}
-          value={crypt1.id}
-          placeholder="Select an crypto"
-        />
+        <Dropdown options={cryptdata} onChange={handlec1} value={crypt1.id} />
         <input
           className=" opacity-75 shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
           type="number"
@@ -51,12 +54,7 @@ const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
         />
       </div>
       <div className="flex flex-col justify-between h-full">
-        <Dropdown
-          options={cryptdata}
-          onChange={handlec2}
-          value={crypt2.id}
-          placeholder="Select an crypto"
-        />
+        <Dropdown options={cryptdata} onChange={handlec2} value={crypt2.id} />
         <input
           className=" opacity-75 shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
           type="number"
