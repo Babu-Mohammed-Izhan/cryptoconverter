@@ -1,34 +1,102 @@
 import { useEffect, useState } from "react";
 import Exchange from "./components/exchange";
+import Chart from "./components/chart";
 import axios from "axios";
 import macbook from "./assets/macbook.svg";
 
 function App() {
   const [cryptoData, setCryptoData] = useState([]);
   const [crypt1, setCrypt1] = useState({
-    id: "bitcoin",
-    rank: "1",
+    id: "1e31218a-e44e-4285-820c-8282ee222035",
     symbol: "BTC",
     name: "Bitcoin",
-    priceUsd: "66238.4999614974995516",
+    slug: "bitcoin",
+    metrics: {
+      market_data: {
+        price_usd: 48596.09705550145,
+        price_btc: 1,
+        price_eth: 11.995926953870985,
+        volume_last_24_hours: 10125619223.275263,
+        real_volume_last_24_hours: 6088636119.426619,
+        volume_last_24_hours_overstatement_multiple: 1.6630356987450938,
+        percent_change_usd_last_1_hour: 0.20471307108859038,
+        percent_change_btc_last_1_hour: 0,
+        percent_change_eth_last_1_hour: -0.29755540863281615,
+        percent_change_usd_last_24_hours: 1.487598806909187,
+        percent_change_btc_last_24_hours: 0,
+        percent_change_eth_last_24_hours: 1.9827588237046938,
+        ohlcv_last_1_hour: {
+          open: 48516.32516498222,
+          high: 48648.50570128624,
+          low: 48226.12827220048,
+          close: 48598.10336893679,
+          volume: 166198385.529315,
+        },
+        ohlcv_last_24_hour: {
+          open: 48260.54256402426,
+          high: 50136.26378513993,
+          low: 46766.44087177553,
+          close: 48596.09705550146,
+          volume: 7030978651.854675,
+        },
+        last_trade_at: "2021-12-11T06:10:52.569Z",
+      },
+    },
   });
   const [crypt2, setCrypt2] = useState({
-    id: "ethereum",
-    rank: "2",
+    id: "21c795f5-1bfd-40c3-858e-e9d7e820c6d0",
     symbol: "ETH",
     name: "Ethereum",
-    priceUsd: "4743.5371566480356478",
+    slug: "ethereum",
+    metrics: {
+      market_data: {
+        price_usd: 4047.346203359393,
+        price_btc: 0.08328541690780088,
+        price_eth: 1,
+        volume_last_24_hours: 10850301414.796656,
+        real_volume_last_24_hours: 6903054924.261704,
+        volume_last_24_hours_overstatement_multiple: 1.5718115434170787,
+        percent_change_usd_last_1_hour: 0.5037674670665908,
+        percent_change_btc_last_1_hour: 0.2984434432398887,
+        percent_change_eth_last_1_hour: 0,
+        percent_change_usd_last_24_hours: -0.5765114269683952,
+        percent_change_btc_last_24_hours: -2.0338546365696977,
+        percent_change_eth_last_24_hours: 0,
+        ohlcv_last_1_hour: {
+          open: 4030.7874287282966,
+          high: 4052.7806508205604,
+          low: 4017.0462559063994,
+          close: 4047.543685785931,
+          volume: 122623819.8691236,
+        },
+        ohlcv_last_24_hour: {
+          open: 4133.323487033106,
+          high: 4235.054758805988,
+          low: 3833.4847919854633,
+          close: 4047.3462033593923,
+          volume: 7712517985.199734,
+        },
+        last_trade_at: "2021-12-11T06:10:52.63Z",
+      },
+    },
   });
 
   useEffect(() => {
     const getCurrencies = async () => {
-      const res = await axios.get("https://api.coincap.io/v2/assets");
-
+      const res = await axios.get("https://data.messari.io/api/v2/assets", {
+        params: {
+          limit: 70,
+        },
+      });
+      console.log(res);
       const cryptdata = res.data.data;
       setCryptoData(cryptdata);
     };
     getCurrencies();
   }, []);
+
+  console.log(crypt1, "c1");
+  console.log(crypt2, "c2");
 
   return (
     <body className="leading-normal tracking-normal text-indigo-400 bg-cover bg-fixed bg-gray-900">
@@ -80,7 +148,7 @@ function App() {
               <div className="mb-4">
                 <label
                   className="block text-blue-300 py-2 font-bold mb-2"
-                  for="emailaddress"
+                  htmlFor="emailaddress"
                 >
                   Signup for our newsletter
                 </label>
@@ -102,13 +170,13 @@ function App() {
               </div>
             </form>
           </div>
-
-          <div className="w-full xl:w-3/5 p-12 overflow-hidden relative">
+          <div className="w-full xl:w-3/5 p-4 md:p-12 overflow-hidden relative">
             <img
-              className="mx-auto w-full md:w-4/5 transform transition hover:scale-105 duration-700 ease-in-out"
+              className="mx-auto w-full transform transition hover:scale-105 duration-700 ease-in-out"
               src={macbook}
               alt="macbook"
             />
+
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-20px">
               <Exchange
                 setCryptoData={setCryptoData}
@@ -119,6 +187,9 @@ function App() {
                 setCrypt2={setCrypt2}
               />
             </div>
+          </div>
+          <div className="h-96 w-full">
+            <Chart crypt1={crypt1} crypt2={crypt2} />
           </div>
 
           <div className="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
