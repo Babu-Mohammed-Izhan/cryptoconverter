@@ -88,16 +88,11 @@ function App() {
           limit: 70,
         },
       });
-      console.log(res);
       const cryptdata = res.data.data;
       setCryptoData(cryptdata);
     };
     getCurrencies();
   }, []);
-
-  console.log(crypt1, "c1");
-  console.log(crypt2, "c2");
-
   return (
     <body className="leading-normal tracking-normal text-indigo-400 bg-cover bg-fixed bg-gray-900">
       <div className="h-full">

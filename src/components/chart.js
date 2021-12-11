@@ -20,7 +20,6 @@ const Chart = ({ crypt1, crypt2 }) => {
         `https://data.messari.io/api/v1/assets/${cryptoname}/metrics/price/time-series`
       );
       const cdata = res.data.data.values;
-      console.log(res.data.data, num);
       if (num === 1) {
         setcrpyt1chart(cdata);
       }
@@ -51,8 +50,6 @@ const Chart = ({ crypt1, crypt2 }) => {
       setchartdata(finaldata);
     }
   }, [crypt1.name, crypt1chart, crypt2.name, crypt2chart]);
-
-  console.log(chartdata);
 
   return (
     <div className="max-h-full">
