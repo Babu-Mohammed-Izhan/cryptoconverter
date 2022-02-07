@@ -1,6 +1,6 @@
-import { useState } from "react";
-import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
+import { useState } from 'react';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
 const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
   const cryptdata = cryptodata.map((d) => d.name);
@@ -44,7 +44,7 @@ const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
     setC2val(value);
   };
   return (
-    <div className="flex items-center justify-center gap-4 w-full h-28">
+    <div className="flex items-center justify-center gap-4 w-full h-28 mb-6">
       <div className="flex flex-col justify-between h-full">
         <Dropdown options={cryptdata} onChange={handlec1} value={crypt1.name} />
         <input
