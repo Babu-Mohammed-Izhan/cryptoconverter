@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import Exchange from './components/exchange';
 import Chart from './components/chart';
 import axios from 'axios';
+import Home from './components/homepage';
 
 function App() {
   const [cryptoData, setCryptoData] = useState([]);
@@ -44,6 +46,13 @@ function App() {
     };
     getCurrencies();
   }, []);
+
+  const links = [
+    { link: '/', name: 'Home', icon: 'bx-home' },
+    { link: '/convert', name: 'Convert', icon: 'bx-transfer' },
+    { link: '/news', name: 'News', icon: 'bx-news' },
+    { link: '/about', name: 'About', icon: 'bx-info-circle' },
+  ];
   return (
     <body className="leading-normal tracking-normal text-indigo-400">
       <div className="h-full">
@@ -55,121 +64,31 @@ function App() {
         <div className="fixed h-full flex flex-row bg-gray-100">
           <div className="flex flex-col w-20 md:w-56 bg-gray-50 overflow-hidden">
             <div className="flex items-center justify-center h-20 shadow-md">
-              <a
-                className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-xl lg:text-4xl"
-                href="/"
+              <Link
+                className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-xs md:text-3xl"
+                to="/"
               >
-                Rip
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500">
-                  ple
-                </span>
-              </a>
+                CryptoHub
+              </Link>
             </div>
             <ul className="flex flex-col py-4">
-              <li>
-                <a
-                  href="/"
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
-                >
-                  <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 mx-auto md:mx-0">
-                    <i className="bx bx-home"></i>
-                  </span>
-                  <span className="hidden md:inline text-sm font-medium">
-                    Dashboard
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
-                >
-                  <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 mx-auto md:mx-0">
-                    <i className="bx bx-music"></i>
-                  </span>
-                  <span className="hidden md:inline text-sm font-medium">
-                    Music
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
-                >
-                  <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 mx-auto md:mx-0">
-                    <i className="bx bx-drink"></i>
-                  </span>
-                  <span className="hidden md:inline text-sm font-medium">
-                    Drink
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
-                >
-                  <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 mx-auto md:mx-0">
-                    <i className="bx bx-shopping-bag"></i>
-                  </span>
-                  <span className="hidden md:inline text-sm font-medium">
-                    Shopping
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
-                >
-                  <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 mx-auto md:mx-0">
-                    <i className="bx bx-chat"></i>
-                  </span>
-                  <span className="hidden md:inline text-sm font-medium">
-                    Chat
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
-                >
-                  <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 mx-auto md:mx-0">
-                    <i className="bx bx-user"></i>
-                  </span>
-                  <span className="hidden md:inline text-sm font-medium">
-                    Profile
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
-                >
-                  <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 mx-auto md:mx-0">
-                    <i className="bx bx-bell"></i>
-                  </span>
-                  <span className="hidden md:inline text-sm font-medium">
-                    Notifications
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
-                >
-                  <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 mx-auto md:mx-0">
-                    <i className="bx bx-log-out"></i>
-                  </span>
-                  <span className="hidden md:inline text-sm font-medium">
-                    Logout
-                  </span>
-                </a>
-              </li>
+              {links.map((l) => {
+                return (
+                  <li>
+                    <Link
+                      to={`${l.link}`}
+                      className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
+                    >
+                      <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400 mx-auto md:mx-0">
+                        <i className={`bx ${l.icon}`}></i>
+                      </span>
+                      <span className="hidden md:inline text-sm font-medium">
+                        {l.name}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
@@ -188,16 +107,27 @@ function App() {
               </svg>
             </a>
           </div>
-          <div className="my-10 h-full mr-10">
-            <Exchange
-              setCryptoData={setCryptoData}
-              cryptodata={cryptoData}
-              crypt1={crypt1}
-              setCrypt1={setCrypt1}
-              crypt2={crypt2}
-              setCrypt2={setCrypt2}
-            />
-            <Chart crypt1={crypt1} crypt2={crypt2} />
+          <div className="my-10 h-full mr-10 mx-auto">
+            <Routes>
+              <Route
+                path="/convert"
+                element={
+                  <>
+                    <Chart crypt1={crypt1} crypt2={crypt2} />
+                    <Exchange
+                      setCryptoData={setCryptoData}
+                      cryptodata={cryptoData}
+                      crypt1={crypt1}
+                      setCrypt1={setCrypt1}
+                      crypt2={crypt2}
+                      setCrypt2={setCrypt2}
+                    />
+                  </>
+                }
+              />
+
+              <Route path="/" element={Home} />
+            </Routes>
           </div>
         </div>
       </div>
