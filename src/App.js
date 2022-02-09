@@ -4,6 +4,8 @@ import Exchange from './components/exchange';
 import Chart from './components/chart';
 import axios from 'axios';
 import Home from './components/homepage';
+import About from './components/about';
+import News from './components/news';
 
 function App() {
   const [cryptoData, setCryptoData] = useState([]);
@@ -109,6 +111,8 @@ function App() {
           </div>
           <div className="my-10 h-full mr-10 mx-auto">
             <Routes>
+              <Route path="/about" element={<About />} />
+              <Route path="/news" element={<News />} />
               <Route
                 path="/convert"
                 element={
@@ -126,7 +130,7 @@ function App() {
                 }
               />
 
-              <Route path="/" element={Home} />
+              <Route path="/" element={<Home />} />
             </Routes>
           </div>
         </div>
