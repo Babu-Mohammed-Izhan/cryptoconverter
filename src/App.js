@@ -109,7 +109,7 @@ function App() {
               </svg>
             </a>
           </div>
-          <div className="my-10 h-full mr-10 mx-auto">
+          <div className="my-10 h-full mr-1 mx-auto">
             <Routes>
               <Route path="/about" element={<About />} />
               <Route path="/news" element={<News />} />
