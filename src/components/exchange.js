@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import Card from './cryptoCard';
 
 const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
   const cryptdata = cryptodata.map((d) => d.name);
@@ -44,28 +45,43 @@ const Exchange = ({ cryptodata, crypt1, crypt2, setCrypt1, setCrypt2 }) => {
     setC2val(value);
   };
   return (
-    <div className="flex items-center justify-center gap-4 w-full h-28 mt-6">
-      <div className="flex flex-col justify-between h-full">
-        <Dropdown options={cryptdata} onChange={handlec1} value={crypt1.name} />
-        <input
-          className=" opacity-75 shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-          type="number"
-          value={c1val}
-          onChange={handlecrypto1calc}
-          name="c1"
-          id="c1"
-        />
+    <div>
+      <div className="flex items-center justify-center gap-4 w-full h-28 mt-6">
+        <div className="flex flex-col justify-between h-full">
+          <Dropdown
+            options={cryptdata}
+            onChange={handlec1}
+            value={crypt1.name}
+          />
+          <input
+            className=" opacity-75 shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+            type="number"
+            value={c1val}
+            onChange={handlecrypto1calc}
+            name="c1"
+            id="c1"
+          />
+        </div>
+        <div className="flex flex-col justify-between h-full">
+          <Dropdown
+            options={cryptdata}
+            onChange={handlec2}
+            value={crypt2.name}
+          />
+          <input
+            className=" opacity-75 shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+            type="number"
+            value={c2val}
+            onChange={handlecrypto2calc}
+            name="c2"
+            id="c2"
+          />
+        </div>
       </div>
-      <div className="flex flex-col justify-between h-full">
-        <Dropdown options={cryptdata} onChange={handlec2} value={crypt2.name} />
-        <input
-          className=" opacity-75 shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
-          type="number"
-          value={c2val}
-          onChange={handlecrypto2calc}
-          name="c2"
-          id="c2"
-        />
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 mt-20 gap-y-10">
+        {cryptodata.map((c) => {
+          return <Card cryptData={c} key={c.name} />;
+        })}
       </div>
     </div>
   );
