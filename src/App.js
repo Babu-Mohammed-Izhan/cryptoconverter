@@ -56,7 +56,7 @@ function App() {
     { link: '/about', name: 'About', icon: 'bx-info-circle' },
   ];
   return (
-    <body className="leading-normal tracking-normal text-indigo-400">
+    <body className="leading-normal tracking-normal text-indigo-500">
       <div className="h-full">
         <link
           rel="stylesheet"
@@ -67,7 +67,7 @@ function App() {
           <div className="flex flex-col w-20 md:w-56 bg-gray-50 overflow-hidden">
             <div className="flex items-center justify-center h-20 shadow-md">
               <Link
-                className="flex items-center text-indigo-400 no-underline hover:no-underline font-bold text-xs md:text-3xl"
+                className="flex items-center text-indigo-500 no-underline hover:no-underline font-bold text-xs md:text-3xl"
                 to="/"
               >
                 CryptoHub

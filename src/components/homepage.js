@@ -9,15 +9,15 @@ const Home = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 mx-5 mt-20">
         <div className="flex items-center justify-center flex-col p-5 px-10">
-          <h1 className="text-md md:text-lg lg:text-3xl font-bold">Convert</h1>
+          <h1 className="text-md md:text-2xl lg:text-4xl font-bold">Convert</h1>
           <h2 className="md:text-md lg:text-xl font-semibold text-center">
             Compare many cryptocurrencies with the latest values.
           </h2>
         </div>
         <div className="flex items-center justify-center flex-col p-5 px-10">
-          <h1 className="text-md md:text-lg lg:text-3xl font-bold">News</h1>
+          <h1 className="text-md md:text-2xl lg:text-4xl font-bold">News</h1>
           <h2 className="md:text-md lg:text-xl font-semibold text-center">
-            All the latest crypto news in one place
+            All the latest crypto news in one place.
           </h2>
         </div>
       </div>
