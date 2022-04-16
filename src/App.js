@@ -50,8 +50,7 @@ function App() {
   }, []);
 
   const links = [
-    { link: '/', name: 'Home', icon: 'bx-home' },
-    { link: '/convert', name: 'Convert', icon: 'bx-transfer' },
+    { link: '/', name: 'Convert', icon: 'bx-transfer' },
     { link: '/news', name: 'News', icon: 'bx-news' },
     { link: '/about', name: 'About', icon: 'bx-info-circle' },
   ];
@@ -114,7 +113,7 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/news" element={<News />} />
               <Route
-                path="/convert"
+                path="/"
                 element={
                   <>
                     <Chart crypt1={crypt1} crypt2={crypt2} />
@@ -129,8 +128,6 @@ function App() {
                   </>
                 }
               />
-
-              <Route path="/" element={<Home />} />
             </Routes>
           </div>
         </div>

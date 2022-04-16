@@ -16,7 +16,7 @@ const News = () => {
   }, []);
   return (
     <section className="flex items-center justify-center flex-col">
-      <h1 className="text-4xl font-bold">News</h1>
+      <h1 className="text-4xl font-bold">Crypto News</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10 mx-10">
         {news.map((n) => {
           return <NewsCard key={n.title} data={n} />;
